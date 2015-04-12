@@ -1,4 +1,4 @@
-package server
+package packet
 
 // magic const
 const (
@@ -43,4 +43,9 @@ const (
 	TYPE_SUBMIT_JOB_LOW_BG  = 34
 	TYPE_SUBMIT_JOB_SCHED   = 35
 	TYPE_SUBMIT_JOB_EPOCH   = 36
+)
+
+//header item length
+const (
+	HEADER_ITEM_LENGTH = 4
 )
