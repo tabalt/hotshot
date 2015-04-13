@@ -65,4 +65,5 @@ func (this *Server) handleRequest(pack *packet.Packet) {
 	//TODO handle request
 
 	fmt.Println("magic :", pack.Magic, "\ttype :", pack.Type, "\tsize :", pack.Size, "\tdata :", pack.Data)
+	fmt.Println(pack.Encode())
 }

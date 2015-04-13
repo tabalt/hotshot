@@ -42,3 +42,25 @@ func BuildPacketFromConnection(conn net.Conn) *Packet {
 
 	return NewPacket(magicValue, typeValue, sizeValue, dataValue)
 }
+
+// Encode a Packet to byte slice
+func (this *Packet) Encode() []byte {
+
+	// length of data
+	dataLength := len(this.Data)
+
+	// legth of header
+	headerLength := HEADER_ITEM_LENGTH * HEADER_ITEM_COUNT
+
+	// length of packet
+	packetLength := dataLength + headerLength
+
+	buffer := make([]byte, packetLength)
+
+	copy(buffer[:HEADER_ITEM_LENGTH], MAGIC_REQ)
+	binary.BigEndian.PutUint32(buffer[HEADER_ITEM_LENGTH:HEADER_ITEM_LENGTH*2], uint32(this.Type))
+	binary.BigEndian.PutUint32(buffer[HEADER_ITEM_LENGTH*2:headerLength], uint32(dataLength))
+	copy(buffer[headerLength:], []byte(this.Data))
+
+	return buffer
+}

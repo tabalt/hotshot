@@ -45,7 +45,8 @@ const (
 	TYPE_SUBMIT_JOB_EPOCH   = 36
 )
 
-//header item length
+//header const
 const (
 	HEADER_ITEM_LENGTH = 4
+	HEADER_ITEM_COUNT  = 3
 )
