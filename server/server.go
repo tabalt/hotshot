@@ -29,6 +29,7 @@ func (this *Server) Start() {
 	fmt.Println("listen success: ", tcpAddress, "\n\n")
 
 	for {
+		// TODO log client info
 		conn, err := listener.Accept()
 		if err != nil {
 			continue
@@ -43,15 +44,25 @@ func (this *Server) handleConnection(conn net.Conn) {
 	fmt.Println("start handleConnection")
 
 	// close connection before exit
-	//defer conn.Close()
+	defer conn.Close()
 
 	for {
 
 		pack := packet.BuildPacketFromConnection(conn)
 
-		fmt.Println("magic :", pack.Magic, "\ttype :", pack.Type, "\tsize :", pack.Size, "\tdata :", pack.Data)
+		if pack.Magic != packet.MAGIC_REQ {
+			fmt.Println("empty pack, now break")
+			break
+		}
 
-		//os.Exit(0)
-
+		//handle request
+		this.handleRequest(pack)
 	}
+}
+
+func (this *Server) handleRequest(pack *packet.Packet) {
+
+	//TODO handle request
+
+	fmt.Println("magic :", pack.Magic, "\ttype :", pack.Type, "\tsize :", pack.Size, "\tdata :", pack.Data)
 }
